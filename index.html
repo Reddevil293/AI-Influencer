@@ -70,6 +70,17 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+        .image-placeholder {
+            background-color: #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+            font-size: 1.25rem;
+            border-radius: 0.75rem;
+            min-height: 250px; /* Ensure some height for the placeholder */
+            text-align: center;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -262,52 +273,107 @@
         <section id="ai-generator" class="py-16 md:py-24 bg-gray-100 rounded-lg mx-4 md:mx-8 lg:mx-12 my-8 shadow-inner">
             <div class="max-w-4xl mx-auto px-6 md:px-10 lg:px-20">
                 <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 text-center mb-8">
-                    Your AI Content Generator
+                    Your AI Influencer Studio
                 </h2>
                 <p class="text-lg text-gray-700 text-center mb-8">
-                    Enter your prompt below and let our AI create content for you. You can then save and load your creations!
+                    Generate unique influencer profiles, content ideas, and stunning visuals. Save your text creations for later!
                 </p>
 
-                <div class="bg-white p-8 rounded-2xl shadow-lg">
+                <!-- Influencer Profile Generation Sub-section -->
+                <div class="bg-white p-8 rounded-2xl shadow-lg mb-12">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6 text-center gradient-text">Generate Influencer Profiles & Bios</h3>
                     <div class="mb-6">
-                        <label for="prompt-input" class="block text-gray-700 text-lg font-semibold mb-3">
-                            Enter your content idea or prompt:
+                        <label for="influencer-profile-prompt" class="block text-gray-700 text-lg font-semibold mb-3">
+                            Describe your desired influencer (e.g., "A fashion influencer with a quirky, vintage style, targeting Gen Z on TikTok" or "A calm and insightful wellness guru for busy professionals"):
                         </label>
-                        <textarea id="prompt-input" rows="6" class="w-full p-4 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 text-gray-800 text-base resize-y" placeholder="e.g., 'Write a short blog post about the benefits of meditation' or 'Generate 5 catchy headlines for a new coffee shop'"></textarea>
+                        <textarea id="influencer-profile-prompt" rows="6" class="w-full p-4 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 text-gray-800 text-base resize-y" placeholder="e.g., 'A sustainable travel blogger who explores hidden gems and shares eco-friendly tips'"></textarea>
                     </div>
 
                     <div class="flex flex-col sm:flex-row gap-4 mb-8">
-                        <button id="generate-button" class="btn-primary text-white px-8 py-4 rounded-xl font-bold text-lg shadow-md hover:shadow-lg flex items-center justify-center flex-grow">
-                            Generate Content
-                            <span id="generate-spinner" class="loading-spinner hidden"></span>
+                        <button id="generate-profile-button" class="btn-primary text-white px-8 py-4 rounded-xl font-bold text-lg shadow-md hover:shadow-lg flex items-center justify-center flex-grow">
+                            Generate Profile
+                            <span id="generate-profile-spinner" class="loading-spinner hidden"></span>
                         </button>
-                        <button id="save-button" class="bg-green-500 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-md hover:bg-green-600 transition-colors duration-200 flex-grow">
-                            Save Content
+                        <button id="save-profile-button" class="bg-green-500 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-md hover:bg-green-600 transition-colors duration-200 flex-grow">
+                            Save Profile
                         </button>
-                        <button id="load-button" class="bg-blue-500 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-md hover:bg-blue-600 transition-colors duration-200 flex-grow">
-                            Load Saved Content
+                        <button id="load-profile-button" class="bg-blue-500 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-md hover:bg-blue-600 transition-colors duration-200 flex-grow">
+                            Load Saved Profile
                         </button>
                     </div>
 
                     <div class="mb-6">
-                        <label for="generated-output" class="block text-gray-700 text-lg font-semibold mb-3">
-                            AI Generated Content:
+                        <label for="generated-profile-output" class="block text-gray-700 text-lg font-semibold mb-3">
+                            AI Generated Influencer Profile:
                         </label>
-                        <textarea id="generated-output" rows="10" class="w-full p-4 border border-gray-300 rounded-lg bg-gray-50 text-gray-800 text-base resize-y" readonly placeholder="Your AI-generated content will appear here..."></textarea>
+                        <textarea id="generated-profile-output" rows="10" class="w-full p-4 border border-gray-300 rounded-lg bg-gray-50 text-gray-800 text-base resize-y" readonly placeholder="Your AI-generated influencer profile and bio will appear here..."></textarea>
                     </div>
-
-                    <div id="message-box" class="hidden bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded-lg relative mt-4" role="alert">
-                        <strong class="font-bold">Info:</strong>
-                        <span id="message-text" class="block sm:inline"></span>
-                        <span class="absolute top-0 bottom-0 right-0 px-4 py-3 cursor-pointer" onclick="document.getElementById('message-box').classList.add('hidden');">
-                            <svg class="fill-current h-6 w-6 text-yellow-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.15a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.03a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.15 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
-                        </span>
-                    </div>
-
-                    <p class="text-sm text-gray-500 mt-4 text-center">
-                        Your User ID: <span id="user-id-display" class="font-mono text-gray-700 break-all">Loading...</span>
-                    </p>
                 </div>
+
+                <!-- Influencer Content Ideas Sub-section -->
+                <div class="bg-white p-8 rounded-2xl shadow-lg mb-12">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6 text-center gradient-text">Generate Influencer Content Ideas</h3>
+                    <div class="mb-6">
+                        <label for="content-idea-prompt" class="block text-gray-700 text-lg font-semibold mb-3">
+                            Describe the content you need (e.g., "5 Instagram post ideas for a fitness influencer promoting home workouts" or "A YouTube video script outline for a gaming influencer reviewing a new game"):
+                        </label>
+                        <textarea id="content-idea-prompt" rows="6" class="w-full p-4 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 text-gray-800 text-base resize-y" placeholder="e.g., 'A series of TikTok captions for a food influencer showcasing quick meal prep'"></textarea>
+                    </div>
+
+                    <div class="flex justify-center mb-8">
+                        <button id="generate-content-ideas-button" class="btn-primary text-white px-8 py-4 rounded-xl font-bold text-lg shadow-md hover:shadow-lg flex items-center justify-center">
+                            Generate Ideas
+                            <span id="generate-content-ideas-spinner" class="loading-spinner hidden"></span>
+                        </button>
+                    </div>
+
+                    <div class="mb-6">
+                        <label for="generated-content-ideas-output" class="block text-gray-700 text-lg font-semibold mb-3">
+                            AI Generated Content Ideas:
+                        </label>
+                        <textarea id="generated-content-ideas-output" rows="10" class="w-full p-4 border border-gray-300 rounded-lg bg-gray-50 text-gray-800 text-base resize-y" readonly placeholder="Your AI-generated content ideas will appear here..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Influencer Visuals Generation Sub-section -->
+                <div class="bg-white p-8 rounded-2xl shadow-lg">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6 text-center gradient-text">Generate Influencer Visuals</h3>
+                    <div class="mb-6">
+                        <label for="image-prompt-input" class="block text-gray-700 text-lg font-semibold mb-3">
+                            Enter your visual idea for an influencer (e.g., "A stylish fashion influencer posing in a vibrant street art alley, golden hour" or "A tech influencer reviewing a new gadget in a minimalist studio"):
+                        </label>
+                        <textarea id="image-prompt-input" rows="4" class="w-full p-4 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 text-gray-800 text-base resize-y" placeholder="e.g., 'A travel influencer standing on a mountain peak at sunrise, epic landscape'"></textarea>
+                    </div>
+
+                    <div class="flex justify-center mb-8">
+                        <button id="generate-image-button" class="btn-primary text-white px-8 py-4 rounded-xl font-bold text-lg shadow-md hover:shadow-lg flex items-center justify-center">
+                            Generate Image
+                            <span id="generate-image-spinner" class="loading-spinner hidden"></span>
+                        </button>
+                    </div>
+
+                    <div class="mb-6">
+                        <label for="generated-image" class="block text-gray-700 text-lg font-semibold mb-3">
+                            AI Generated Image:
+                        </label>
+                        <div id="image-display-area" class="w-full bg-gray-50 border border-gray-300 rounded-lg flex items-center justify-center overflow-hidden">
+                            <img id="generated-image" src="" alt="Generated Image" class="max-w-full h-auto rounded-lg hidden">
+                            <div id="image-placeholder-text" class="image-placeholder w-full h-full p-4">Your AI-generated image will appear here.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="message-box" class="hidden bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded-lg relative mt-4" role="alert">
+                    <strong class="font-bold">Info:</strong>
+                    <span id="message-text" class="block sm:inline"></span>
+                    <span class="absolute top-0 bottom-0 right-0 px-4 py-3 cursor-pointer" onclick="document.getElementById('message-box').classList.add('hidden');">
+                        <svg class="fill-current h-6 w-6 text-yellow-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.15a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.03a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.15 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+                    </span>
+                </div>
+
+                <p class="text-sm text-gray-500 mt-4 text-center">
+                    Your User ID: <span id="user-id-display" class="font-mono text-gray-700 break-all">Loading...</span>
+                </p>
             </div>
         </section>
 
@@ -337,13 +403,13 @@
                     <!-- FAQ Item 1 -->
                     <div class="card p-6 rounded-xl">
                         <h3 class="text-lg font-semibold text-gray-900 mb-2">What kind of content can I generate?</h3>
-                        <p class="text-gray-600">You can generate a wide range of content including blog posts, social media captions, ad copy, email newsletters, product descriptions, and more, using the AI Generator section.</p>
+                        <p class="text-gray-600">You can generate detailed influencer profiles, creative content ideas (like posts and scripts), and custom visuals (profile pictures, branding elements) using the AI Influencer Studio section.</p>
                     </div>
 
                     <!-- FAQ Item 2 -->
                     <div class="card p-6 rounded-xl">
                         <h3 class="text-lg font-semibold text-gray-900 mb-2">Is MakeInfluencer.AI really free?</h3>
-                        <p class="text-gray-600">This replica is completely free to use and modify. The AI generation and content saving features are powered by free-tier services integrated directly into this HTML file.</p>
+                        <p class="text-gray-600">This replica is completely free to use and modify. The AI text and image generation, and content saving features are powered by free-tier services integrated directly into this HTML file.</p>
                     </div>
 
                     <!-- FAQ Item 3 -->
@@ -361,7 +427,7 @@
                      <!-- FAQ Item 5 -->
                      <div class="card p-6 rounded-xl">
                         <h3 class="text-lg font-semibold text-gray-900 mb-2">How does the "backend" work without a server?</h3>
-                        <p class="text-gray-600">This replica uses client-side JavaScript to interact with the Gemini API for AI generation and Google Firestore for saving and loading your content. These are cloud services that your browser can directly communicate with, giving you dynamic functionality without needing to set up or manage your own server.</p>
+                        <p class="text-gray-600">This replica uses client-side JavaScript to interact with the Gemini API for AI text generation, Imagen API for AI image generation, and Google Firestore for saving and loading your text content. These are cloud services that your browser can directly communicate with, giving you dynamic functionality without needing to set up or manage your own server.</p>
                     </div>
                 </div>
             </div>
@@ -414,7 +480,9 @@
             const messageBox = document.getElementById('message-box');
             const messageText = document.getElementById('message-text');
             messageText.textContent = text;
-            messageBox.className = `bg-${type}-100 border border-${type}-400 text-${type}-700 px-4 py-3 rounded-lg relative mt-4`;
+            // Remove previous type classes and add new one
+            messageBox.classList.remove('bg-red-100', 'border-red-400', 'text-red-700', 'bg-green-100', 'border-green-400', 'text-green-700', 'bg-yellow-100', 'border-yellow-400', 'text-yellow-700');
+            messageBox.classList.add(`bg-${type}-100`, `border-${type}-400`, `text-${type}-700`);
             messageBox.classList.remove('hidden');
         }
 
@@ -468,30 +536,30 @@
         // Call Firebase initialization on window load
         window.onload = initializeFirebase;
 
-        // Function to generate content using Gemini API
-        async function generateContent() {
-            const promptInput = document.getElementById('prompt-input');
-            const generatedOutput = document.getElementById('generated-output');
-            const generateButton = document.getElementById('generate-button');
-            const generateSpinner = document.getElementById('generate-spinner');
+        // Function to generate Influencer Profile & Bios using Gemini API
+        async function generateInfluencerProfile() {
+            const promptInput = document.getElementById('influencer-profile-prompt');
+            const generatedOutput = document.getElementById('generated-profile-output');
+            const generateButton = document.getElementById('generate-profile-button');
+            const generateSpinner = document.getElementById('generate-profile-spinner');
 
             const prompt = promptInput.value.trim();
             if (!prompt) {
-                showMessage("Please enter a prompt to generate content.", "yellow");
+                showMessage("Please describe your desired influencer to generate a profile.", "yellow");
                 return;
             }
 
             generatedOutput.value = ''; // Clear previous output
             generateButton.disabled = true;
             generateSpinner.classList.remove('hidden');
-            showMessage("Generating content, please wait...", "info");
+            showMessage("Generating influencer profile, please wait...", "info");
 
             try {
                 let chatHistory = [];
-                chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                chatHistory.push({ role: "user", parts: [{ text: `Generate a detailed influencer profile and bio based on the following description: "${prompt}". Include their niche, personality, target audience, and a catchy bio.` }] });
 
                 const payload = { contents: chatHistory };
-                const apiKey = "AIzaSyCXQbj3YAu1nhThQmOsP5j-Snw4B1CUAJU"; // Canvas will automatically provide the API key here.
+                const apiKey = "AIzaSyCXQbj3YAu1nhThQmOsP5j-Snw4B1CUAJU"; // YOU MUST PASTE YOUR API KEY HERE FOR GITHUB PAGES
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
                 const response = await fetch(apiUrl, {
@@ -507,73 +575,177 @@
                     result.candidates[0].content.parts.length > 0) {
                     const text = result.candidates[0].content.parts[0].text;
                     generatedOutput.value = text;
-                    showMessage("Content generated successfully!", "green");
+                    showMessage("Influencer profile generated successfully!", "green");
                 } else {
-                    console.error("Unexpected API response structure:", result);
-                    showMessage("Failed to generate content. Please try again.", "red");
+                    console.error("Unexpected API response structure for profile generation:", result);
+                    showMessage("Failed to generate influencer profile. Please try again.", "red");
                 }
             } catch (error) {
-                console.error("Error generating content:", error);
-                showMessage("An error occurred while generating content. Please check your network connection.", "red");
+                console.error("Error generating influencer profile:", error);
+                showMessage("An error occurred while generating influencer profile. Please check your network connection and API key.", "red");
             } finally {
                 generateButton.disabled = false;
                 generateSpinner.classList.add('hidden');
             }
         }
 
-        // Function to save content to Firestore
-        async function saveContent() {
+        // Function to generate Influencer Content Ideas using Gemini API
+        async function generateInfluencerContentIdeas() {
+            const promptInput = document.getElementById('content-idea-prompt');
+            const generatedOutput = document.getElementById('generated-content-ideas-output');
+            const generateButton = document.getElementById('generate-content-ideas-button');
+            const generateSpinner = document.getElementById('generate-content-ideas-spinner');
+
+            const prompt = promptInput.value.trim();
+            if (!prompt) {
+                showMessage("Please enter a description for content ideas.", "yellow");
+                return;
+            }
+
+            generatedOutput.value = ''; // Clear previous output
+            generateButton.disabled = true;
+            generateSpinner.classList.remove('hidden');
+            showMessage("Generating content ideas, please wait...", "info");
+
+            try {
+                let chatHistory = [];
+                chatHistory.push({ role: "user", parts: [{ text: `Generate creative content ideas, including topics, captions, or script outlines for an influencer based on this request: "${prompt}"` }] });
+
+                const payload = { contents: chatHistory };
+                const apiKey = "AIzaSyCXQbj3YAu1nhThQmOsP5j-Snw4B1CUAJU"; // YOU MUST PASTE YOUR API KEY HERE FOR GITHUB PAGES
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    const text = result.candidates[0].content.parts[0].text;
+                    generatedOutput.value = text;
+                    showMessage("Content ideas generated successfully!", "green");
+                } else {
+                    console.error("Unexpected API response structure for content ideas generation:", result);
+                    showMessage("Failed to generate content ideas. Please try again.", "red");
+                }
+            } catch (error) {
+                console.error("Error generating content ideas:", error);
+                showMessage("An error occurred while generating content ideas. Please check your network connection and API key.", "red");
+            } finally {
+                generateButton.disabled = false;
+                generateSpinner.classList.add('hidden');
+            }
+        }
+
+        // Function to generate image using Imagen API
+        async function generateImage() {
+            const imagePromptInput = document.getElementById('image-prompt-input');
+            const generatedImage = document.getElementById('generated-image');
+            const imagePlaceholderText = document.getElementById('image-placeholder-text');
+            const generateImageButton = document.getElementById('generate-image-button');
+            const generateImageSpinner = document.getElementById('generate-image-spinner');
+
+            const prompt = imagePromptInput.value.trim();
+            if (!prompt) {
+                showMessage("Please enter a prompt for image generation.", "yellow");
+                return;
+            }
+
+            generatedImage.src = ''; // Clear previous image
+            generatedImage.classList.add('hidden'); // Hide image
+            imagePlaceholderText.classList.remove('hidden'); // Show placeholder text
+            generateImageButton.disabled = true;
+            generateImageSpinner.classList.remove('hidden');
+            showMessage("Generating image, please wait (this may take a few moments)...", "info");
+
+            try {
+                const payload = { instances: { prompt: prompt }, parameters: { "sampleCount": 1} };
+                const apiKey = "AIzaSyCXQbj3YAu1nhThQmOsP5j-Snw4B1CUAJU"; // YOU MUST PASTE YOUR API KEY HERE FOR GITHUB PAGES
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-002:predict?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+
+                if (result.predictions && result.predictions.length > 0 && result.predictions[0].bytesBase64Encoded) {
+                    const imageUrl = `data:image/png;base64,${result.predictions[0].bytesBase64Encoded}`;
+                    generatedImage.src = imageUrl;
+                    generatedImage.classList.remove('hidden'); // Show image
+                    imagePlaceholderText.classList.add('hidden'); // Hide placeholder text
+                    showMessage("Image generated successfully!", "green");
+                } else {
+                    console.error("Unexpected API response structure for image generation:", result);
+                    showMessage("Failed to generate image. Please try again.", "red");
+                }
+            } catch (error) {
+                console.error("Error generating image:", error);
+                showMessage("An error occurred while generating image. Please check your network connection and API key.", "red");
+            } finally {
+                generateImageButton.disabled = false;
+                generateImageSpinner.classList.add('hidden');
+            }
+        }
+
+        // Function to save content to Firestore (now specifically for profiles/text)
+        async function saveProfileContent() {
             if (!isAuthReady) {
                 showMessage("Authentication not ready. Please wait a moment and try again.", "yellow");
                 return;
             }
 
-            const generatedOutput = document.getElementById('generated-output');
+            const generatedOutput = document.getElementById('generated-profile-output'); // Changed to profile output
             const content = generatedOutput.value.trim();
             if (!content) {
-                showMessage("No content to save. Generate some content first.", "yellow");
+                showMessage("No influencer profile content to save. Generate a profile first.", "yellow");
                 return;
             }
 
-            // Generate a unique ID for the content
-            const contentId = `content_${Date.now()}`;
-            const docRef = doc(db, `artifacts/${__app_id}/users/${userId}/generated_content`, contentId);
+            const contentId = `influencer_profile_${Date.now()}`;
+            const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+            const docRef = doc(db, `artifacts/${appId}/users/${userId}/generated_influencer_profiles`, contentId); // Changed collection name
 
             try {
                 await setDoc(docRef, {
                     content: content,
                     timestamp: new Date()
                 });
-                showMessage("Content saved successfully!", "green");
+                showMessage("Influencer profile saved successfully!", "green");
             } catch (error) {
                 console.error("Error saving content:", error);
-                showMessage("Failed to save content. Please try again.", "red");
+                showMessage("Failed to save influencer profile. Please try again.", "red");
             }
         }
 
-        // Function to load content from Firestore
-        async function loadContent() {
+        // Function to load content from Firestore (now specifically for profiles/text)
+        async function loadProfileContent() {
             if (!isAuthReady) {
                 showMessage("Authentication not ready. Please wait a moment and try again.", "yellow");
                 return;
             }
 
-            const generatedOutput = document.getElementById('generated-output');
-            const contentCollectionRef = collection(db, `artifacts/${__app_id}/users/${userId}/generated_content`);
+            const generatedOutput = document.getElementById('generated-profile-output'); // Changed to profile output
+            const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+            const contentCollectionRef = collection(db, `artifacts/${appId}/users/${userId}/generated_influencer_profiles`); // Changed collection name
 
             try {
-                // Fetch all documents in the user's generated_content collection
                 const q = query(contentCollectionRef);
                 const querySnapshot = await getDocs(q);
 
                 if (querySnapshot.empty) {
-                    showMessage("No saved content found for your user ID.", "info");
+                    showMessage("No saved influencer profiles found for your user ID.", "info");
                     generatedOutput.value = '';
                     return;
                 }
 
-                // For simplicity, we'll load the most recent content.
-                // In a real app, you might list all saved content and let the user choose.
                 let latestContent = null;
                 let latestTimestamp = new Date(0);
 
@@ -587,23 +759,25 @@
 
                 if (latestContent) {
                     generatedOutput.value = latestContent;
-                    showMessage("Latest content loaded successfully!", "green");
+                    showMessage("Latest influencer profile loaded successfully!", "green");
                 } else {
-                    showMessage("Could not retrieve latest content. Collection might be empty or corrupted.", "red");
+                    showMessage("Could not retrieve latest influencer profile. Collection might be empty or corrupted.", "red");
                 }
 
             } catch (error) {
                 console.error("Error loading content:", error);
-                showMessage("Failed to load content. Please try again.", "red");
+                showMessage("Failed to load influencer profile. Please try again.", "red");
             }
         }
 
         // Event Listeners for buttons
-        document.getElementById('generate-button').addEventListener('click', generateContent);
-        document.getElementById('save-button').addEventListener('click', saveContent);
-        document.getElementById('load-button').addEventListener('click', loadContent);
+        document.getElementById('generate-profile-button').addEventListener('click', generateInfluencerProfile);
+        document.getElementById('generate-content-ideas-button').addEventListener('click', generateInfluencerContentIdeas);
+        document.getElementById('generate-image-button').addEventListener('click', generateImage);
+        document.getElementById('save-profile-button').addEventListener('click', saveProfileContent); // Changed to save profile
+        document.getElementById('load-profile-button').addEventListener('click', loadProfileContent); // Changed to load profile
 
-        // JavaScript for mobile menu functionality (existing from previous version)
+        // JavaScript for mobile menu functionality
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const closeMobileMenuButton = document.getElementById('close-mobile-menu');
         const mobileMenu = document.getElementById('mobile-menu');
@@ -612,20 +786,19 @@
         function openMobileMenu() {
             mobileMenu.classList.add('open');
             mobileMenuOverlay.style.display = 'block';
-            document.body.style.overflow = 'hidden'; // Prevent scrolling when menu is open
+            document.body.style.overflow = 'hidden';
         }
 
         function closeMobileMenu() {
             mobileMenu.classList.remove('open');
             mobileMenuOverlay.style.display = 'none';
-            document.body.style.overflow = ''; // Restore scrolling
+            document.body.style.overflow = '';
         }
 
         mobileMenuButton.addEventListener('click', openMobileMenu);
         closeMobileMenuButton.addEventListener('click', closeMobileMenu);
-        mobileMenuOverlay.addEventListener('click', closeMobileMenu); // Close when clicking outside menu
+        mobileMenuOverlay.addEventListener('click', closeMobileMenu);
 
-        // Close mobile menu when a link is clicked (for smooth scrolling)
         document.querySelectorAll('#mobile-menu a').forEach(link => {
             link.addEventListener('click', closeMobileMenu);
         });
