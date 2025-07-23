@@ -559,7 +559,7 @@
                 chatHistory.push({ role: "user", parts: [{ text: `Generate a detailed influencer profile and bio based on the following description: "${prompt}". Include their niche, personality, target audience, and a catchy bio.` }] });
 
                 const payload = { contents: chatHistory };
-                const apiKey = "AIzaSyCXQbj3YAu1nhThQmOsP5j-Snw4B1CUAJU"; // YOU MUST PASTE YOUR API KEY HERE FOR GITHUB PAGES
+                const apiKey = "AIzaSyCXQbj3YAu1nhThQmOsP5j-Snw4B1CUAJU"; // API KEY INSERTED HERE
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
                 const response = await fetch(apiUrl, {
@@ -612,7 +612,7 @@
                 chatHistory.push({ role: "user", parts: [{ text: `Generate creative content ideas, including topics, captions, or script outlines for an influencer based on this request: "${prompt}"` }] });
 
                 const payload = { contents: chatHistory };
-                const apiKey = "AIzaSyCXQbj3YAu1nhThQmOsP5j-Snw4B1CUAJU"; // YOU MUST PASTE YOUR API KEY HERE FOR GITHUB PAGES
+                const apiKey = "AIzaSyCXQbj3YAu1nhThQmOsP5j-Snw4B1CUAJU"; // API KEY INSERTED HERE
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
                 const response = await fetch(apiUrl, {
@@ -665,7 +665,7 @@
 
             try {
                 const payload = { instances: { prompt: prompt }, parameters: { "sampleCount": 1} };
-                const apiKey = "AIzaSyCXQbj3YAu1nhThQmOsP5j-Snw4B1CUAJU"; // YOU MUST PASTE YOUR API KEY HERE FOR GITHUB PAGES
+                const apiKey = "AIzaSyCXQbj3YAu1nhThQmOsP5j-Snw4B1CUAJU"; // API KEY INSERTED HERE
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-002:predict?key=${apiKey}`;
 
                 const response = await fetch(apiUrl, {
